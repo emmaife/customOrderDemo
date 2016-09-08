@@ -1,0 +1,17 @@
+<h1>Custom Order Requests</h1>
+ 
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Description</th>
+  </tr>
+ 
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.name %></td>
+      <td><%= order.email %></td>
+      <td><%= order.description %></td>
+    </tr>
+  <% end %>
+</table>
