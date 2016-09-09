@@ -31,10 +31,18 @@ class OrdersController < ApplicationController
 		#end
 	end
 
+
 	def update
+
 		@order = Order.find(params[:id])
+		
 		if @order.update(order_params)
-		  redirect_to @order
+			@newCustomOrder = Spree::Product.new(name: @order.name, price: @order.price, description: @order. description, available_on: Time.now)
+			@newCustomOrder.save(validate: false) 
+		  #render '/spree/admin/products/new'
+		 #redirect_to  new_admin_product_path 
+		  redirect_to '/store/admin/products'
+
 		else
 		  render 'edit'
 		end
