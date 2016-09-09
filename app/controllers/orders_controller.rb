@@ -1,4 +1,8 @@
 class OrdersController < ApplicationController
+
+	 def index
+    	@orders = Order.all
+  	end
 	def new
 		@order = Order.new
 	end
@@ -9,12 +13,22 @@ class OrdersController < ApplicationController
 
 	def create
 		@order = Order.new(order_params)
+	    @order.request = request
+	    if @order.deliver
+	      flash.now[:notice] = 'Thank you for your message. We will contact you soon!'
+	      redirect_to @order
 
-		if @order.save
-			redirect_to @order
-		else
-			render 'new'
-		end
+	    else
+	      flash.now[:error] = 'Cannot send message.'
+	      render :new
+	    end
+		#@order = Order.new(order_params)
+
+		#if @order.save
+		#	redirect_to @order
+		#else
+		#	render 'new'
+		#end
 	end
 
 	def update
@@ -30,9 +44,7 @@ class OrdersController < ApplicationController
     	@order = Order.find(params[:id])
   	end
 
-  	def index
-    	@orders = Order.all
-  	end
+
 
 	private
 		def order_params

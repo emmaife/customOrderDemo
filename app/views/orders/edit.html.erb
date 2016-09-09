@@ -15,7 +15,9 @@
       </ul>
     </div>
   <% end %>
- 
+ <p><b>Name:</b><%= @order.name %></p>
+ <p><b>Email</b> <%= @order.email%></p>
+ <p><b>Description:</b> <%=@order.description%></p>
   <p>
     <%= f.label :price %><br>
     <%= f.text_field :price %>
